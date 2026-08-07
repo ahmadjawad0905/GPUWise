@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "async-handler": "^0.0.3",
+    "dotenv": "^17.4.2",
+    "express-async-handler": "^1.2.0",
+    "json": "^11.0.0"
+  }
+}

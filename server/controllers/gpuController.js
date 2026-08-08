@@ -1,72 +1,101 @@
-const asyncHandler = require('express-async-handler');
+const asyncHandler = require("express-async-handler");
+const GPU = require("../models/GPU");
 
 // @desc    Get all GPUs
 // @route   GET /api/gpus
 // @access  Public
-const getAllGPUs = asyncHandler(async(req, res) => {
+const getAllGPUs = asyncHandler(async (req, res) => {
+  const gpus = await GPU.find();
+
   res.status(200).json({
     status: "OK",
     message: "All GPUs fetched successfully.",
-    data: [
-      {
-        id: 1,
-        brand: "NVIDIA",
-        model: "RTX 5060",
-      },
-      {
-        id: 2,
-        brand: "AMD",
-        model: "RX 9060 XT",
-      },
-    ],
+    count: gpus.length,
+    data: gpus,
   });
 });
 
 // @desc    Search GPUs
-// @route   GET /api/gpus/search
+// @route   GET /api/gpus/search?q=5060
 // @access  Public
-const searchGPUs = asyncHandler(async(req, res) => {
+const searchGPUs = asyncHandler(async (req, res) => {
   const query = req.query.q;
+
+  if (!query) {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Please provide a search query.",
+    });
+  }
+
+  const gpus = await GPU.find({
+    $or: [
+      { model: { $regex: query, $options: "i" } },
+      { brand: { $regex: query, $options: "i" } },
+      { series: { $regex: query, $options: "i" } },
+    ],
+  });
 
   res.status(200).json({
     status: "OK",
-    message: "Search endpoint working.",
-    search: query,
+    message: "GPU search completed successfully.",
+    count: gpus.length,
+    data: gpus,
   });
 });
 
-// @desc    Compare GPUs
-// @route   GET /api/gpus/compare
+// @desc    Compare two GPUs
+// @route   GET /api/gpus/compare?gpu1=rtx-5060&gpu2=rx-9060-xt
 // @access  Public
-
-const compareGPUs = asyncHandler(async(req, res) => {
+const compareGPUs = asyncHandler(async (req, res) => {
   const { gpu1, gpu2 } = req.query;
+
+  if (!gpu1 || !gpu2) {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Please provide two GPU slugs to compare.",
+    });
+  }
+
+  const firstGPU = await GPU.findOne({ slug: gpu1 });
+  const secondGPU = await GPU.findOne({ slug: gpu2 });
+
+  if (!firstGPU || !secondGPU) {
+    return res.status(404).json({
+      status: "ERROR",
+      message: "One or both GPUs could not be found.",
+    });
+  }
 
   res.status(200).json({
     status: "OK",
-    message: "Comparison endpoint working.",
-    compare: {
-      gpu1,
-      gpu2,
+    message: "GPU comparison fetched successfully.",
+    data: {
+      gpu1: firstGPU,
+      gpu2: secondGPU,
     },
   });
 });
 
-// @desc    Get single GPU by ID
-// @route   GET /api/gpus/:id
+// @desc    Get single GPU by slug
+// @route   GET /api/gpus/:slug
 // @access  Public
+const getSingleGPU = asyncHandler(async (req, res) => {
+  const gpu = await GPU.findOne({
+    slug: req.params.slug,
+  });
 
-const getSingleGPU = asyncHandler(async(req, res) => {
+  if (!gpu) {
+    return res.status(404).json({
+      status: "ERROR",
+      message: "GPU not found.",
+    });
+  }
+
   res.status(200).json({
     status: "OK",
     message: "Single GPU fetched successfully.",
-    data: {
-      id: req.params.id,
-      brand: "NVIDIA",
-      model: "RTX 5060",
-      vram: "8 GB",
-      price: "$299",
-    },
+    data: gpu,
   });
 });
 
@@ -76,4 +105,3 @@ module.exports = {
   compareGPUs,
   getSingleGPU,
 };
-

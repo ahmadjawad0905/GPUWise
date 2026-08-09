@@ -38,17 +38,22 @@ const recommendGPUs = async (requirements) => {
     const prompt = `
 You are GPUWise, a GPU recommendation assistant.
 
-Your job is to recommend the most suitable GPU from the candidates provided.
+Your job is to select the best GPU and one alternative from the provided candidate GPUs.
 
 IMPORTANT RULES:
-- Only recommend GPUs from the candidate list.
-- Use only the information provided below.
-- Do not invent specifications, prices, benchmarks, or features.
-- Do not recommend a GPU that is not in the candidate list.
-- Consider the user's requirements carefully.
-- Explain why the recommendation fits the user.
-- Mention important trade-offs or limitations.
-- If a GPU is discontinued or its current price is unknown, mention that when relevant.
+
+1. ONLY recommend GPUs from the candidate list.
+2. Do NOT invent specifications, prices, benchmarks, features, or capabilities.
+3. The recommended GPU must satisfy the user's hard requirements.
+4. The alternative GPU must also satisfy the user's hard requirements.
+5. If there is only one candidate, alternativeGPU must be null.
+6. If there are no suitable candidates, recommendedGPU must be null.
+7. Consider the user's use case when deciding between candidates.
+8. Use the supplied GPU data as the only source of GPU specifications.
+9. Do not use launch MSRP as the current price.
+10. If currentPrice is null, clearly mention that current pricing is unavailable.
+11. If a GPU is discontinued, mention this as a potential disadvantage.
+12. Keep pros and cons specific to the supplied GPU data.
 
 USER REQUIREMENTS:
 ${JSON.stringify(requirements, null, 2)}
@@ -56,7 +61,56 @@ ${JSON.stringify(requirements, null, 2)}
 CANDIDATE GPUs:
 ${JSON.stringify(candidates, null, 2)}
 
-Return your recommendation in a clear and concise way.
+Return ONLY valid JSON using exactly this structure:
+
+{
+    "recommendedGPU": {
+        "model": "",
+        "slug": "",
+        "reason": "",
+        "keySpecs": {
+            "vram": "",
+            "memoryType": "",
+            "memoryBandwidth": "",
+            "cudaCores": null,
+            "rtCores": null,
+            "tensorCores": null,
+            "tdp": null
+        },
+        "pros": [],
+        "cons": []
+    },
+
+    "alternativeGPU": {
+        "model": "",
+        "slug": "",
+        "reason": "",
+        "keySpecs": {
+            "vram": "",
+            "memoryType": "",
+            "memoryBandwidth": "",
+            "cudaCores": null,
+            "rtCores": null,
+            "tensorCores": null,
+            "tdp": null
+        },
+        "pros": [],
+        "cons": []
+    },
+
+    "summary": ""
+}
+
+If there is no alternative candidate, return:
+
+"alternativeGPU": null
+
+If there are no candidates, return:
+
+"recommendedGPU": null,
+"alternativeGPU": null
+
+and explain why in "summary".
 `;
 
     // 6. Ask Gemini to reason about the candidates

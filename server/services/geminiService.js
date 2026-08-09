@@ -5,12 +5,16 @@ const ai = new GoogleGenAI({
 });
 
 const askGemini = async (prompt) => {
+
     const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: prompt
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json"
+        }
     });
 
-    return response.text;
+    return JSON.parse(response.text);
 };
 
 module.exports = askGemini;

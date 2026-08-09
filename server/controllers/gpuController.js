@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const GPU = require("../models/GPU");
+const filterGPUs = require("../services/gpuFilterService");
 
 // @desc    Get all GPUs
 // @route   GET /api/gpus
@@ -99,9 +100,32 @@ const getSingleGPU = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Get filtered GPUs
+// @route   GET /api/gpus/filter
+// @access  Public
+
+const getFilteredGPUs = asyncHandler(async (req, res) => {
+
+    const requirements = req.query;
+
+    // Get all GPUs from MongoDB
+    const gpus = await GPU.find();
+
+    // Filter GPUs according to user requirements
+    const filteredGPUs = filterGPUs(gpus, requirements);
+    
+    res.status(200).json({
+        status: "OK",
+        message: "Filtered GPUs fetched successfully.",
+        count: filteredGPUs.length,
+        data: filteredGPUs,
+    });
+});
+
 module.exports = {
   getAllGPUs,
   searchGPUs,
   compareGPUs,
   getSingleGPU,
+  getFilteredGPUs,
 };

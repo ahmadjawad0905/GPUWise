@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { getAllGPUs, searchGPUs, compareGPUs, getSingleGPU} = require("../controllers/gpuController");
+const { getAllGPUs, searchGPUs, compareGPUs, getSingleGPU, getFilteredGPUs} = require("../controllers/gpuController");
 
 // GET all GPUs
 router.get("/gpus", getAllGPUs);
+
+// Get Filtered GPUs
+router.get("/gpus/filter", getFilteredGPUs);
 
 // Search GPUs
 // Example: /api/gpus/search?q=5060

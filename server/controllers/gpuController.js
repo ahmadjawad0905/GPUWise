@@ -1,6 +1,56 @@
 const asyncHandler = require("express-async-handler");
 const GPU = require("../models/GPU");
 const filterGPUs = require("../services/gpuFilterService");
+const askGemini = require("../services/geminiService");
+const getCandidates = require("../services/recommendationService");
+const recommendGPUs = require("../services/recommendationService");
+
+// @desc    Test Gemini AI
+// @route   GET /api/gpus/test-gemini
+const testGemini = asyncHandler(async (req, res) => {
+
+    const response = await askGemini(
+        "You are GPUWise, a GPU recommendation assistant. Say hello and explain your role in one sentence."
+    );
+
+    res.status(200).json({
+        status: "OK",
+        message: "Gemini API is working.",
+        response: response
+    });
+});
+
+// @desc    Get candidate GPUs based on user requirements
+// @route   GET /api/gpus/candidates
+
+const testCandidates = asyncHandler(async (req, res) => {
+
+    const requirements = req.query;
+
+    const candidates = await getCandidates(requirements);
+
+    res.status(200).json({
+        status: "OK",
+        message: "Candidate GPUs generated successfully.",
+        count: candidates.length,
+        data: candidates
+    });
+});
+
+// desc get recommendation
+// route GET 
+const getRecommendation = asyncHandler(async (req, res) => {
+
+    const requirements = req.query;
+
+    const result = await recommendGPUs(requirements);
+
+    res.status(200).json({
+        status: "OK",
+        message: "GPU recommendation generated successfully.",
+        data: result
+    });
+});
 
 // @desc    Get all GPUs
 // @route   GET /api/gpus
@@ -113,7 +163,7 @@ const getFilteredGPUs = asyncHandler(async (req, res) => {
 
     // Filter GPUs according to user requirements
     const filteredGPUs = filterGPUs(gpus, requirements);
-    
+
     res.status(200).json({
         status: "OK",
         message: "Filtered GPUs fetched successfully.",
@@ -122,10 +172,14 @@ const getFilteredGPUs = asyncHandler(async (req, res) => {
     });
 });
 
+
 module.exports = {
   getAllGPUs,
   searchGPUs,
   compareGPUs,
   getSingleGPU,
   getFilteredGPUs,
+  testGemini,
+  testCandidates,
+  getRecommendation
 };

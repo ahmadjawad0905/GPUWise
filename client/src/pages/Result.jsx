@@ -72,35 +72,35 @@ function Results({ recommendation, setPage }) {
             <div className="spec">
               <span>VRAM</span>
               <strong>
-                {recommendedGPU.memory?.vramGB ?? "N/A"} GB
+                {recommendedGPU?.keySpecs?.vram ?? "N/A"} GB
               </strong>
             </div>
 
             <div className="spec">
               <span>Memory</span>
               <strong>
-                {recommendedGPU.memory?.memoryType ?? "N/A"}
+                {recommendedGPU?.keySpecs?.memoryType ?? "N/A"}
               </strong>
             </div>
 
             <div className="spec">
               <span>CUDA Cores</span>
               <strong>
-                {recommendedGPU.compute?.cudaCores ?? "N/A"}
+                {recommendedGPU?.keySpecs?.cudaCores ?? "N/A"}
               </strong>
             </div>
 
             <div className="spec">
               <span>RT Cores</span>
               <strong>
-                {recommendedGPU.compute?.rtCores ?? "N/A"}
+                {recommendedGPU?.keySpecs?.rtCores ?? "N/A"}
               </strong>
             </div>
 
             <div className="spec">
-              <span>Power</span>
+              <span>Memory Bandwidth</span>
               <strong>
-                {recommendedGPU.power?.tdpWatts ?? "N/A"} W
+                {recommendedGPU?.keySpecs?.memoryBandwidth ?? "N/A"}
               </strong>
             </div>
 

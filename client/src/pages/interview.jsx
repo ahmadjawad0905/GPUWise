@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../App.css";
+import "./interview.css";
 
 function Interview({ setPage, setRecommendation }) {
   const [step, setStep] = useState(1);

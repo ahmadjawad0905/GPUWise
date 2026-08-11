@@ -1,0 +1,440 @@
+/* ==========================================
+   RESULTS PAGE — Clean & Minimal
+   ========================================== */
+
+
+/* ---- Animation ---- */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ---- Page ---- */
+
+.results-page {
+  min-height: 100vh;
+  padding: 64px 40px 96px;
+  background: #0a0a0a;
+  color: #f5f5f5;
+}
+
+
+/* ---- Header ---- */
+
+.results-header {
+  max-width: 880px;
+  margin: 0 auto 72px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.results-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: #8b7cff;
+  margin: 0 0 20px;
+}
+
+.results-header h1 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin: 0 0 16px;
+  color: #fff;
+}
+
+.results-subtitle {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+/* ---- GPU Card ---- */
+
+.gpu-card {
+  max-width: 880px;
+  margin: 0 auto 36px;
+  padding: 40px;
+  border: 1px solid #1a1a1a;
+  border-radius: 16px;
+  background: #0e0e0e;
+  animation: fadeUp 0.5s ease both;
+}
+
+.gpu-card.primary {
+  animation-delay: 0.05s;
+  border-color: #222;
+}
+
+.gpu-card.secondary {
+  animation-delay: 0.12s;
+  background: #0c0c0c;
+  border-color: #161616;
+}
+
+
+/* Badge */
+
+.card-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #8b7cff;
+  background: rgba(139, 124, 255, 0.07);
+  padding: 6px 14px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.gpu-card.secondary .card-badge {
+  color: #555;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+
+/* Model name */
+
+.gpu-model {
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #fff;
+  margin: 0 0 32px;
+  line-height: 1.15;
+}
+
+
+/* ---- Specs Row ---- */
+
+.specs-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 1px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 16px;
+  background: #0e0e0e;
+  text-align: center;
+}
+
+.gpu-card.secondary .spec-item {
+  background: #0c0c0c;
+}
+
+.spec-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #4a4a4a;
+  text-transform: uppercase;
+}
+
+.spec-value {
+  font-size: 17px;
+  font-weight: 600;
+  color: #e8e8e8;
+}
+
+
+/* ---- Reason ---- */
+
+.reason-section {
+  margin-bottom: 28px;
+}
+
+.reason-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #777;
+  margin: 0 0 12px;
+}
+
+.reason-section p {
+  color: #999;
+  line-height: 1.75;
+  font-size: 15px;
+  margin: 0;
+}
+
+
+/* ---- Pros & Cons ---- */
+
+.pros-cons-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.pros-list,
+.cons-list {
+  padding: 22px;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+}
+
+.pros-list h4,
+.cons-list h4 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  margin: 0 0 16px;
+}
+
+.pros-list h4 {
+  color: #5fba6f;
+}
+
+.cons-list h4 {
+  color: #d66;
+}
+
+.pros-list ul,
+.cons-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pros-list li,
+.cons-list li {
+  position: relative;
+  padding-left: 18px;
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.pros-list li:last-child,
+.cons-list li:last-child {
+  margin-bottom: 0;
+}
+
+.pros-list li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: #5fba6f;
+}
+
+.cons-list li::before {
+  content: "−";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: #d66;
+}
+
+
+/* ---- Summary ---- */
+
+.summary-section {
+  max-width: 880px;
+  margin: 0 auto 52px;
+  padding: 28px 36px;
+  border-left: 2px solid #8b7cff;
+  background: rgba(139, 124, 255, 0.025);
+  border-radius: 0 12px 12px 0;
+  animation: fadeUp 0.5s ease 0.2s both;
+}
+
+.summary-section h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #8b7cff;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.summary-section p {
+  color: #888;
+  line-height: 1.75;
+  font-size: 15px;
+  margin: 0;
+}
+
+
+/* ---- Candidates ---- */
+
+.candidates-section {
+  max-width: 880px;
+  margin: 0 auto 52px;
+  animation: fadeUp 0.5s ease 0.28s both;
+}
+
+.candidates-section h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #444;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+.candidate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.candidate-chip {
+  padding: 18px 20px;
+  border: 1px solid #161616;
+  border-radius: 10px;
+  background: #0c0c0c;
+  transition: border-color 0.2s ease;
+}
+
+.candidate-chip:hover {
+  border-color: #2a2a2a;
+}
+
+.candidate-chip h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+  margin: 0 0 6px;
+}
+
+.candidate-chip p {
+  font-size: 12px;
+  color: #444;
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+/* ---- Restart ---- */
+
+.restart-section {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 16px;
+  animation: fadeUp 0.5s ease 0.35s both;
+}
+
+.restart-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 28px;
+
+  border: 1px solid #1e1e1e;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #666;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.restart-button:hover {
+  border-color: #444;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+
+/* ---- No Results ---- */
+
+.no-results {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #0a0a0a;
+  gap: 28px;
+}
+
+.no-results h1 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+
+/* ---- Responsive ---- */
+
+@media (max-width: 768px) {
+
+  .results-page {
+    padding: 40px 20px 64px;
+  }
+
+  .results-header {
+    margin-bottom: 48px;
+  }
+
+  .gpu-card {
+    padding: 28px 22px;
+  }
+
+  .gpu-model {
+    margin-bottom: 24px;
+  }
+
+  .specs-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pros-cons-row {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-section {
+    padding: 22px 24px;
+  }
+
+  .candidate-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .specs-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .candidate-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

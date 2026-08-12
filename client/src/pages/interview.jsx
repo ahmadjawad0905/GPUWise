@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./interview.css";
+import "./loading.css";
 
 function Interview({ setPage, setRecommendation }) {
   const [step, setStep] = useState(1);
@@ -12,6 +13,8 @@ function Interview({ setPage, setRecommendation }) {
     needsCUDA: false,
     needsRayTracing: false,
   });
+
+const [loading, setLoading] = useState(false);
 
   // Save an answer
   const updateRequirement = (field, value) => {
@@ -29,6 +32,7 @@ function Interview({ setPage, setRecommendation }) {
   // Send final requirements to backend
   const getRecommendation = async (finalRequirements) => {
     try {
+      setLoading(true);
       console.log("Final requirements:", finalRequirements);
 
       const params = new URLSearchParams({
@@ -51,6 +55,7 @@ function Interview({ setPage, setRecommendation }) {
       if (data.status === "OK") {
         // Store recommendation in App
         setRecommendation(data.data);
+        setLoading(false);
 
         // Move to Results page
         setPage("results");
@@ -61,6 +66,15 @@ function Interview({ setPage, setRecommendation }) {
       console.error("Error fetching recommendation:", error);
     }
   };
+
+if (loading) {
+  return (
+    <div className="loader-container">
+      <div className="loader"></div>
+      <span className="loader-label">FINDING YOUR GPU</span>
+    </div>
+  );
+}
 
   return (
     <main className="interview-page">

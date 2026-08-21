@@ -36,13 +36,6 @@ const filterGPUs = (gpus, requirements) => {
         );
     }
 
-    // Availability requirement
-    if (requirements.onlyAvailable) {
-        filteredGPUs = filteredGPUs.filter(
-            gpu => gpu.availability === "in production"
-        );
-    }
-
     return filteredGPUs;
 };
 

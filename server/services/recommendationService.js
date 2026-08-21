@@ -30,8 +30,7 @@ const recommendGPUs = async (requirements) => {
         pricing: gpu.pricing,
         performance: gpu.performance,
         software: gpu.software,
-        aiCapabilities: gpu.aiCapabilities,
-        availability: gpu.availability
+        aiCapabilities: gpu.aiCapabilities
     }));
 
     // 5. Create the prompt for Gemini
@@ -51,9 +50,8 @@ IMPORTANT RULES:
 7. Consider the user's use case when deciding between candidates.
 8. Use the supplied GPU data as the only source of GPU specifications.
 9. Do not use launch MSRP as the current price.
-10. If currentPrice is null, clearly mention that current pricing is unavailable.
-11. If a GPU is discontinued, mention this as a potential disadvantage.
-12. Keep pros and cons specific to the supplied GPU data.
+10. If currentPrice seems unusually low, note it may reflect used market pricing.
+11. Keep pros and cons specific to the supplied GPU data.
 
 USER REQUIREMENTS:
 ${JSON.stringify(requirements, null, 2)}

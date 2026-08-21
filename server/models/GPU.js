@@ -122,67 +122,6 @@ const gpuSchema = new mongoose.Schema(
     },
 
     // =========================
-    // Power
-    // =========================
-    power: {
-      tdpWatts: {
-        type: Number,
-        required: true,
-      },
-
-      recommendedPSUWatts: {
-        type: Number,
-        required: true,
-      },
-
-      powerConnectors: {
-        type: [String],
-        default: [],
-      },
-    },
-
-    // =========================
-    // Physical Size
-    // =========================
-    physical: {
-      lengthMM: {
-        type: Number,
-        default: null,
-      },
-
-      slotSize: {
-        type: String,
-        default: null,
-      },
-
-      coolingType: {
-        type: String,
-        enum: ["air", "liquid", "blower", null],
-        default: "air",
-      },
-    },
-
-    // =========================
-    // Connectivity
-    // =========================
-    connectivity: {
-      hdmi: {
-        type: Number,
-        default: 0,
-      },
-
-      displayPort: {
-        type: Number,
-        default: 0,
-      },
-
-      pcieVersion: {
-        type: String,
-        required: true,
-      },
-    },
-
-    // =========================
     // Pricing
     // =========================
     pricing: {
@@ -291,20 +230,6 @@ const gpuSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
-    },
-
-    // =========================
-    // Extras
-    // =========================
-    image: {
-      type: String,
-      default: null,
-    },
-
-    availability: {
-      type: String,
-      enum: ["in-production", "discontinued"],
-      default: "in-production",
     },
   },
   {
